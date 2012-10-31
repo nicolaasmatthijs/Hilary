@@ -22,6 +22,7 @@
     "express": "latest",
     "helenus": "latest",
     "hiredis": "latest",
+    "neo4j": "latest",
     "oae-authentication": "",
     "oae-authz": "",
     "oae-config": "",
