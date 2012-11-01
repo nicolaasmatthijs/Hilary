@@ -71,7 +71,7 @@ var createLinks = function() {
     linkNodes({'type': 'Group', 'uid': 'UI Team'}, {'type': 'Content', 'uid': 'Test.pdf'}, 'CONTENTEDITOR');
 };
 
-//createLinks();
+createLinks();
 
 /**
  * Permission checks
@@ -143,3 +143,19 @@ var getAllRoles = function() {
 };
 
 //getAllRoles();
+
+// Get group memberships for user
+
+var getGroupMemberships = function() {
+    
+};
+
+//getGroupMemberships();
+
+// Get direct members of resource
+
+var getDirectMembers = function() {
+    
+};
+
+//getDirectMembers();
