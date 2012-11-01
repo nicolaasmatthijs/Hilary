@@ -42,6 +42,11 @@ config.redis = {
     'dbIndex': 0
 };
 
+// The Neo4J related configuration information
+config.neo4j = {
+    'host': 'http://localhost:7474'
+};
+
 config.log = {
     'streams': [
         {
