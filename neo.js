@@ -44,15 +44,15 @@ var linkNodes = function(n1, n2, relationship) {
     // Get first node
     db.getIndexedNode(n1.type, 'name', n1.uid, function(err, node1) {
         if (err) {
-            console.log(err);
+            console.log(err.stack());
         }
         db.getIndexedNode(n2.type, 'name', n2.uid, function(err, node2) {
             if (err) {
-                console.log(err);
+                console.log(err.stack());
             }
             node1.createRelationshipTo(node2, relationship, {}, function(err, rel) {
                 if (err) {
-                    console.log(err);
+                    console.log(err.stack());
                 }
                 console.log('Done creating relationship');
             })
@@ -71,7 +71,7 @@ var createLinks = function() {
     linkNodes({'type': 'Group', 'uid': 'UI Team'}, {'type': 'Content', 'uid': 'Test.pdf'}, 'CONTENTEDITOR');
 };
 
-createLinks();
+//createLinks();
 
 /**
  * Permission checks
@@ -147,7 +147,17 @@ var getAllRoles = function() {
 // Get group memberships for user
 
 var getGroupMemberships = function() {
-    
+    var cypher = 'START a=node:User(name="Branden") MATCH path = a-[*..10]->b WHERE b.type="Group" RETURN b';
+    var start = Date.now();
+    db.query(cypher, {}, function(err, result) {
+        var memberships = [];
+        for (var i = 0; i < result.length; i++) {
+            memberships.push(result[i].b.data.uid);
+        }
+        console.log(memberships);
+        var end = Date.now();
+        console.log(end - start);
+    });
 };
 
 //getGroupMemberships();
@@ -155,7 +165,17 @@ var getGroupMemberships = function() {
 // Get direct members of resource
 
 var getDirectMembers = function() {
-    
+    var cypher = 'START a=node:Content(name="Test.pdf") MATCH path = a<-[r]-b RETURN r,b';
+    var start = Date.now();
+    db.query(cypher, {}, function(err, result) {
+        var memberships = [];
+        for (var i = 0; i < result.length; i++) {
+            memberships.push(result[i].b.data.uid + ' -> ' + result[i].r.type);
+        }
+        console.log(memberships);
+        var end = Date.now();
+        console.log(end - start);
+    });
 };
 
-//getDirectMembers();
+getDirectMembers();
